@@ -25,7 +25,7 @@ if (empty($_POST['email'])) {
     print('Заполни email.<br/>');
     $errors = TRUE;
 }
-if (empty($_POST['birth'])) {
+if (empty($_POST['date'])) {
     print('Выбери дату.<br/>');
     $errors = TRUE;
 }
