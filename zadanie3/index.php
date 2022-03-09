@@ -61,6 +61,7 @@ $email = $_POST['email'];
 $date = $_POST['date'];
 $gender = $_POST['gender'];
 $limbs = (int)$_POST['limbs'];
+$bio = $_POST['bio'];
 $policy = $_POST['policy'];
 $powers = implode(',', $_POST['select']);
 
@@ -70,8 +71,8 @@ $db = new PDO('mysql:host=localhost;dbname=u47532', $user, $pass, array(PDO::ATT
 
 // Подготовленный запрос. Не именованные метки.
 try {
-    $stmt = $db->prepare("INSERT INTO clients SET name = ?, email = ?, date = ?, gender = ?, limbs = ?, policy = ?");
-    $stmt->execute(array($name, $email, $date, $gender, $limbs, $policy));
+    $stmt = $db->prepare("INSERT INTO clients SET name = ?, email = ?, date = ?, gender = ?, limbs = ?, bio = ?, policy = ?");
+    $stmt->execute(array($name, $email, $date, $gender, $limbs, $bio, $policy));
     $power_id = $db->lastInsertId();
 
     $superpowers = $db->prepare("INSERT INTO powers SET powers = ?, user_id = ? ");
