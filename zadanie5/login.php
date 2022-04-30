@@ -30,6 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         display: flex;
         justify-content: center;
         align-items: center;
+        flex-direction: column;
       }
     </style>
     <title>Логин</title>
