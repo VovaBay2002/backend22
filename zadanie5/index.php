@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         setcookie('email_value', '', 100000);
         setcookie('date_value', '', 100000);
         setcookie('gender_value', '', 100000);
-        setcookie('parts_value', '', 100000);
+        setcookie('limbs_value', '', 100000);
         setcookie('superpowers_value', '', 100000);
         setcookie('bio_value', '', 100000);
         setcookie('policy_value', '', 100000);
