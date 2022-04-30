@@ -37,3 +37,8 @@ body {
 #send-btn {
     width: 100%;
 }
+
+
+.error {
+    color: rgba(245, 46, 46, 1);
+}
