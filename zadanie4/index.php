@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $errors['date'] = !empty($_COOKIE['date_error']);
     $errors['gender'] = !empty($_COOKIE['gender_error']);
     $errors['limbs'] = !empty($_COOKIE['limbs_error']);
-    $errors['abilities'] = !empty($_COOKIE['abilities_error']);
+    $errors['superpowers'] = !empty($_COOKIE['superpowers_error']);
     $errors['bio'] = !empty($_COOKIE['bio_error']);
     $errors['policy'] = !empty($_COOKIE['policy_error']);
 
@@ -40,8 +40,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         setcookie('limbs_error', '', 100000);
         $messages[] = '<div class="error">Выберите количество конечностей.</div>';
     }
-    if ($errors['abilities']) {
-        setcookie('abilities_error', '', 100000);
+    if ($errors['superpowers']) {
+        setcookie('superpowers_error', '', 100000);
         $messages[] = '<div class="error">Выберите суперспособнос(ть/ти).</div>';
     }
     if ($errors['bio']) {
@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $values['date'] = empty($_COOKIE['date_value']) ? '' : $_COOKIE['date_value'];
     $values['gender'] = empty($_COOKIE['gender_value']) ? '' : $_COOKIE['gender_value'];
     $values['limbs'] = empty($_COOKIE['limbs_value']) ? '' : $_COOKIE['limbs_value'];
-    $values['abilities'] = empty($_COOKIE['abilities_value']) ? '' : $_COOKIE['abilities_value'];
+    $values['superpowers'] = empty($_COOKIE['superpowers_value']) ? '' : $_COOKIE['superpowers_value'];
     $values['bio'] = empty($_COOKIE['bio_value']) ? '' : $_COOKIE['bio_value'];
     $values['policy'] = empty($_COOKIE['policy_value']) ? '' : $_COOKIE['policy_value'];
 
@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     }
 
     $errors = FALSE;
-    if (!preg_match('/^[a-z0-9][a-z0-9-_]+[a-z0-9]$/is', $_POST['name'])) {
+    if (!preg_match('/^[a-zа-я0-9][a-zа-я0-9-_]+[a-zа-я0-9]$/is', $_POST['name'])) {
         setcookie('name_error', '1', time() + 24 * 60 * 60);
         $errors = TRUE;
     } else {
@@ -107,11 +107,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         setcookie('limbs_value', $_POST['limbs'], time() + 12 * 30 * 24 * 60 * 60);
     }
 
-    if (empty($_POST['abilities'])) {
-        setcookie('abilities_error', '1', time() + 24 * 60 * 60);
+    if (empty($_POST['superpowers'])) {
+        setcookie('superpowers_error', '1', time() + 24 * 60 * 60);
         $errors = TRUE;
     } else {
-        setcookie('abilities_value', implode(',', $_POST['abilities']), time() + 12 * 30 * 24 * 60 * 60);
+        setcookie('superpowers_value', implode(',', $_POST['superpowers']), time() + 12 * 30 * 24 * 60 * 60);
     }
 
     if (empty($_POST['bio'])) {
@@ -137,7 +137,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         setcookie('date_error', '', 100000);
         setcookie('gender_error', '', 100000);
         setcookie('limbs_error', '', 100000);
-        setcookie('abilities_error', '', 100000);
+        setcookie('superpowers_error', '', 100000);
         setcookie('bio_error', '', 100000);
         setcookie('policy_error', '', 100000);
     }
@@ -149,7 +149,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $limbs = $_POST['limbs'];
     $bio = $_POST['bio'];
     $policy = $_POST['policy'];
-    $powers = implode(',', $_POST['abilities']);
+    $powers = implode(',', $_POST['superpowers']);
 
     $user = 'u47523';
     $pass = '2958871';
