@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         setcookie('date_value', '', 100000);
         setcookie('gender_value', '', 100000);
         setcookie('parts_value', '', 100000);
-        setcookie('powers_value', '', 100000);
+        setcookie('superpowers_value', '', 100000);
         setcookie('bio_value', '', 100000);
         setcookie('policy_value', '', 100000);
         header('Location: ./');
@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
   $errors['date'] = !empty($_COOKIE['date_error']);
   $errors['gender'] = !empty($_COOKIE['gender_error']);
   $errors['limbs'] = !empty($_COOKIE['limbs_error']);
-  $errors['powers'] = !empty($_COOKIE['powers_error']);
+  $errors['superpowers'] = !empty($_COOKIE['superpowers_error']);
   $errors['bio'] = !empty($_COOKIE['bio_error']);
   $errors['policy'] = !empty($_COOKIE['policy_error']);
 
@@ -70,8 +70,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     setcookie('limbs_error', '', 100000);
     $messages[] = '<div class="error">Выберите количество конечностей.</div>';
   }
-  if ($errors['powers']) {
-    setcookie('powers_error', '', 100000);
+  if ($errors['superpowers']) {
+    setcookie('superpowers_error', '', 100000);
     $messages[] = '<div class="error">Выберите суперспособнос(ть/ти).</div>';
   }
   if ($errors['bio']) {
@@ -89,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
   $values['date'] = empty($_COOKIE['date_value']) ? '' : strip_tags($_COOKIE['date_value']);
   $values['gender'] = empty($_COOKIE['gender_value']) ? '' : strip_tags($_COOKIE['gender_value']);
   $values['limbs'] = empty($_COOKIE['limbs_value']) ? '' : strip_tags($_COOKIE['limbs_value']);
-  $values['powers'] = empty($_COOKIE['powers_value']) ? '' : strip_tags($_COOKIE['powers_value']);
+  $values['superpowers'] = empty($_COOKIE['superpowers_value']) ? '' : strip_tags($_COOKIE['superpowers_value']);
   $values['bio'] = empty($_COOKIE['bio_value']) ? '' : strip_tags($_COOKIE['bio_value']);
   $values['policy'] = empty($_COOKIE['policy_value']) ? '' : strip_tags($_COOKIE['policy_value']);
   
@@ -110,10 +110,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
       $values['bio'] = $result['bio'];
       $values['policy'] = $result['policy'];
 
-      $powers = $db->prepare("select * FROM powers2 WHERE user_login = ?");
-      $powers->execute(array($member));
-      $result = $powers->fetch(PDO::FETCH_ASSOC);
-      $values['powers'] = $result['powers'];
+      $superpowers = $db->prepare("select * FROM powers2 WHERE user_login = ?");
+      $superpowers->execute(array($member));
+      $result = $superpowers->fetch(PDO::FETCH_ASSOC);
+      $values['superpowers'] = $result['superpowers'];
     } catch (PDOException $e) {
       print('Error : ' . $e->getMessage());
       exit();
@@ -168,11 +168,11 @@ else {
   }
 
   
-  if (empty($_POST['powers'])) {
-    setcookie('powers_error', '1', time() + 24 * 60 * 60);
+  if (empty($_POST['superpowers'])) {
+    setcookie('superpowers_error', '1', time() + 24 * 60 * 60);
     $errors = TRUE;
   } else {
-    setcookie('powers_value', implode(',', $_POST['powers']), time() + 12 * 30 * 24 * 60 * 60);
+    setcookie('superpowers_value', implode(',', $_POST['superpowers']), time() + 12 * 30 * 24 * 60 * 60);
   }
 
 
@@ -201,7 +201,7 @@ else {
     setcookie('date_error', '', 100000);
     setcookie('gender_error', '', 100000);
     setcookie('limbs_error', '', 100000);
-    setcookie('powers_error', '', 100000);
+    setcookie('superpowers_error', '', 100000);
     setcookie('bio_error', '', 100000);
     setcookie('policy_error', '', 100000);
   }
@@ -215,7 +215,7 @@ else {
   $limbs = $_POST['limbs'];
   $bio = $_POST['bio'];
   $policy = $_POST['policy'];
-  $powers = implode(',', $_POST['powers']);
+  $superpowers = implode(',', $_POST['superpowers']);
   $member = $_SESSION['login'];
 
   $db = new PDO('mysql:host=localhost;dbname=u47532', $user, $pass, array(PDO::ATTR_PERSISTENT => true));
@@ -225,8 +225,8 @@ else {
       $stmt = $db->prepare("UPDATE clients2 SET name = ?, email = ?, date = ?, gender = ?, limbs = ?, bio = ?, policy = ? WHERE login = ?");
       $stmt->execute(array($name, $email, $date, $gender, $limbs, $bio, $policy, $member));
 
-      $superpowers = $db->prepare("UPDATE powers2 SET powers = ? WHERE user_login = ? ");
-      $superpowers->execute(array($powers, $member));
+      $supersuperpowers = $db->prepare("UPDATE powers2 SET superpowers = ? WHERE user_login = ? ");
+      $supersuperpowers->execute(array($superpowers, $member));
     } catch (PDOException $e) {
       print('Error : ' . $e->getMessage());
       exit();
@@ -243,8 +243,8 @@ else {
       $stmt = $db->prepare("INSERT INTO clients2 SET login = ?, pass = ?, name = ?, email = ?, date = ?, gender = ?, limbs = ?, bio = ?, policy = ?");
       $stmt->execute(array($login, $hash, $name, $email, $date, $gender, $limbs, $bio, $policy));
 
-      $superpowers = $db->prepare("INSERT INTO powers2 SET powers = ?, user_login = ? ");
-      $superpowers->execute(array($powers, $login));
+      $supersuperpowers = $db->prepare("INSERT INTO powers2 SET superpowers = ?, user_login = ? ");
+      $supersuperpowers->execute(array($superpowers, $login));
     } catch (PDOException $e) {
       print('Error : ' . $e->getMessage());
       exit();
