@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
     if ($errors['name']) {
         setcookie('name_error', '', 100000);
-        $messages[] = '<div class="error">Введите корректное имя(оно не может быть пустым и может содержать только буквы).</div>';
+        $messages[] = '<div class="error">Имя может содержать только латинские буквы, а также цифры</div>';
     }
     if ($errors['email']) {
         setcookie('email_error', '', 100000);
@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     }
 
     $errors = FALSE;
-    if (!preg_match('/^[a-zа-я0-9][a-zа-я0-9-_]+[a-zа-я0-9]$/is', $_POST['name'])) {
+    if (!preg_match('/^[a-z0-9][a-z0-9-_]+[a-z0-9]$/is', $_POST['name'])) {
         setcookie('name_error', '1', time() + 24 * 60 * 60);
         $errors = TRUE;
     } else {
@@ -151,9 +151,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $policy = $_POST['policy'];
     $powers = implode(',', $_POST['superpowers']);
 
-    $user = 'u47523';
-    $pass = '2958871';
-    $db = new PDO('mysql:host=localhost;dbname=u47523', $user, $pass, array(PDO::ATTR_PERSISTENT => true));
+    $user = 'u47532';
+    $pass = '5378974';
+    $db = new PDO('mysql:host=localhost;dbname=u47532', $user, $pass, array(PDO::ATTR_PERSISTENT => true));
 
     try {
         $stmt = $db->prepare("INSERT INTO clients SET name = ?, email = ?, date = ?, gender = ?, limbs = ?, bio = ?, policy = ?");
