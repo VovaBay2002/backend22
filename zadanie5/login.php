@@ -25,6 +25,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="./style.css" />
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
     <title>Логин</title>
 </head>
 <body>
