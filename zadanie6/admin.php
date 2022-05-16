@@ -140,80 +140,79 @@ if (!empty($_SERVER['PHP_AUTH_USER']) && !empty($_SERVER['PHP_AUTH_PW'])) {
 </head>
 
 <body>
-    <div class="records-list">
-        <table>
-            <tr>
-                <th>Название способности</th>
-                <th>Количество обладателей</th>
-            </tr>
-            <?php
-            if (!empty($powersCount)) {
-                foreach ($powersCount as $value) {
-            ?><tr>
-                        <td><?php echo $value['name'] ?></td>
-                        <td><?php echo $value['amount'] ?></td>
-                    </tr>
-            <?php }
-            } ?>
-        </table>
-    </div>
-    <div class="records-list">
-        <table>
-            <tr>
-                <th>Имя</th>
-                <th>Email</th>
-                <th>Дата рождения</th>
-                <th>Пол</th>
-                <th>Конечности</th>
-                <th>Команда</th>
-                <th>Биография</th>
-            </tr>
-            <?php
-            if (!empty($result)) {
-                foreach ($result as $value) {
-            ?>
-                    <tr>
-                        <td><?php echo $value['name'] ?></td>
-                        <td><?php echo $value['email'] ?></td>
-                        <td><?php echo $value['date'] ?></td>
-                        <td><?php echo $value['limbs'] ?></td>
-                        <td><?php echo $value['gender'] ?></td>
-                        <td>
-                            <?php
-                            $powers = $db->prepare("SELECT distinct name from superclients join powers3 pow on power_id = pow.id where client_id = ?");
-                            $powers->execute(array($value['id']));
-                            $superpowers = $powers->fetchAll(PDO::FETCH_ASSOC);
-                            $str = "";
-                            foreach ($superpowers as $power) {
-                                $str .= $power['name'] . ',';
-                            }
-                            echo $str;
-                            ?>
-                        </td>
-                        <td id="bio">
-                            <?php echo $value['bio'] ?>
-                        </td>
-                        <td class="edit-buttons">
-                            <form action="" method="post">
-                                <input value="<?php echo $value['id'] ?>" name="edit" type="hidden" />
-                                <button class="btn btn-primary" id="edit">Edit</button>
-                            </form>
-                        </td>
-                        <td class="edit-buttons">
-                            <form action="" method="post">
-                                <input value="<?php echo $value['login'] ?>" name="delete" type="hidden" />
-                                <button class="btn btn-primary" id="delete">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-            <?php
-                }
-            } else {
-                echo "Записи не найдены";
+    <table class="table table-striped">
+        <tr>
+            <th scope="col">Название способности</th>
+            <th scope="col">Количество обладателей</th>
+        </tr>
+        <?php
+        if (!empty($powersCount)) {
+            foreach ($powersCount as $value) {
+        ?><tr scope="row">
+                    <td><?php echo $value['name'] ?></td>
+                    <td><?php echo $value['amount'] ?></td>
+                </tr>
+        <?php }
+        } ?>
+    </table>
+
+
+    <table class="table table-striped">
+        <tr>
+            <th scope="col">Имя</th>
+            <th scope="col">Email</th>
+            <th scope="col">Дата рождения</th>
+            <th scope="col">Пол</th>
+            <th scope="col">Конечности</th>
+            <th scope="col">Команда</th>
+            <th scope="col">Биография</th>
+        </tr>
+        <?php
+        if (!empty($result)) {
+            foreach ($result as $value) {
+        ?>
+                <tr scope="row">
+                    <td><?php echo $value['name'] ?></td>
+                    <td><?php echo $value['email'] ?></td>
+                    <td><?php echo $value['date'] ?></td>
+                    <td><?php echo $value['limbs'] ?></td>
+                    <td><?php echo $value['gender'] ?></td>
+                    <td>
+                        <?php
+                        $powers = $db->prepare("SELECT distinct name from superclients join powers3 pow on power_id = pow.id where client_id = ?");
+                        $powers->execute(array($value['id']));
+                        $superpowers = $powers->fetchAll(PDO::FETCH_ASSOC);
+                        $str = "";
+                        foreach ($superpowers as $power) {
+                            $str .= $power['name'] . ',';
+                        }
+                        echo $str;
+                        ?>
+                    </td>
+                    <td id="bio">
+                        <?php echo $value['bio'] ?>
+                    </td>
+                    <td class="edit-buttons">
+                        <form action="" method="post">
+                            <input value="<?php echo $value['id'] ?>" name="edit" type="hidden" />
+                            <button class="btn btn-primary" id="edit">Edit</button>
+                        </form>
+                    </td>
+                    <td class="edit-buttons">
+                        <form action="" method="post">
+                            <input value="<?php echo $value['login'] ?>" name="delete" type="hidden" />
+                            <button class="btn btn-primary" id="delete">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+        <?php
             }
-            ?>
-        </table>
-    </div>
+        } else {
+            echo "Записи не найдены";
+        }
+        ?>
+    </table>
+
     <?php if (!empty($_POST['edit'])) {
         include('update.php');
     } ?>
